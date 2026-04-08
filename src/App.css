@@ -46,3 +46,10 @@
     transform: rotate(360deg);
   }
 }
+
+.image {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+}
