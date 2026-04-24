@@ -29,7 +29,8 @@ class MovieList extends Component {
     }
 
     render() {
-        const MovieListCarousel = ({movieList}) => {
+        const chunksize = 5
+        const MovieList = ({movieList}) => {
             if (!movieList) {
                 return <div>Loading....</div>
             }
@@ -39,8 +40,10 @@ class MovieList extends Component {
                     {movieList.map((movie) =>
                         <Carousel.Item key={movie._id}>
                             <div>
-                                <LinkContainer to={'/movie/'+movie._id} onClick={()=>this.handleClick(movie)}>
-                                    <Nav.Link><Image className="image" src={movie.imageUrl} thumbnail /></Nav.Link>
+                                <LinkContainer to={'/movie/' + movie._id} onClick={() => this.handleClick(movie)}>
+                                    <Nav.Link>
+                                        <Image className="image" src={movie.imageUrl} thumbnail />
+                                    </Nav.Link>
                                 </LinkContainer>
                             </div>
                             <Carousel.Caption>
@@ -53,9 +56,8 @@ class MovieList extends Component {
                 </Carousel>
             )
         }
-
         return (
-            <MovieListCarousel movieList={this.props.movies} />
+            <MovieList movieList={this.props.movies} />
         )
     }
 }
