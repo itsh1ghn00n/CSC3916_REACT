@@ -41,7 +41,7 @@ class Search extends Component {
                             <Form.Row>
                                 <Col xs={12} md={10} className="mb-2">
                                     <Form.Control
-                                        placeholder="Search by title, actor, or genre"
+                                        placeholder="Search by title or actor"
                                         value={this.state.query}
                                         onChange={this.handleChange}
                                         disabled={!loggedIn}
@@ -58,21 +58,21 @@ class Search extends Component {
                 <div>
                     {searchResults && searchResults.length > 0 ? (
                         <div className="movie-grid">
-                            {searchResults.map((movie) => (
-                                <div key={movie._id} className="movie-card">
-                                <Link
-                                    to={`/movie/${movie._id}`}
-                                    onClick={() => this.props.dispatch(setMovie(movie))}
-                                >
-                                    <img src={movie.imageUrl} alt={movie.title} />
-                                    <div className="movie-overlay">
-                                    <h5>{movie.title}</h5>
-                                    <p>⭐ {movie.avgRating?.toFixed(1) || 'N/A'}</p>
-                                    </div>
-                                </Link>
+                        {searchResults.map((movie) => (
+                            <div key={movie._id} className="movie-card">
+                            <Link
+                                to={`/movie/${movie._id}`}
+                                onClick={() => this.props.dispatch(setMovie(movie))}
+                            >
+                                <img src={movie.imageUrl} alt={movie.title} />
+                                <div className="movie-overlay">
+                                <h5>{movie.title}</h5>
+                                <p>⭐ {movie.avgRating?.toFixed(1) || 'N/A'}</p>
                                 </div>
-                            ))}
+                            </Link>
                             </div>
+                        ))}
+                        </div>
                     ) : (
                         <div>No search results yet.</div>
                     )}
