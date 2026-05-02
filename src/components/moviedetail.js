@@ -80,6 +80,7 @@ class MovieDetail extends Component {
                 <div className="movie-info">
                     <h1>{this.props.selectedMovie.title}</h1>
 
+                    <h4>{this.props.selectedMovie.genre}</h4>
                     <h4>
                     <BsStarFill /> {this.props.selectedMovie.avgRating?.toFixed(1) || 0}
                     </h4>

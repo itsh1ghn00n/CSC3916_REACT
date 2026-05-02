@@ -41,7 +41,7 @@ class Search extends Component {
                             <Form.Row>
                                 <Col xs={12} md={10} className="mb-2">
                                     <Form.Control
-                                        placeholder="Search by title or actor"
+                                        placeholder="Search by title, actor, or genre"
                                         value={this.state.query}
                                         onChange={this.handleChange}
                                         disabled={!loggedIn}
