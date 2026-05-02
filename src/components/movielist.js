@@ -29,7 +29,6 @@ class MovieList extends Component {
     }
 
     render() {
-        const chunksize = 5
         const MovieList = ({movieList}) => {
             if (!movieList) {
                 return <div>Loading....</div>

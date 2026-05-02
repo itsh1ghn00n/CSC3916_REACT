@@ -31,8 +31,9 @@ export function submitLogin(data) {
             }
             return response.json()
         }).then((res) => {
+            const rawToken = res.token ? res.token.replace(/^JWT\s+/i, '') : '';
             localStorage.setItem('username', data.username);
-            localStorage.setItem('token', res.token);
+            localStorage.setItem('token', rawToken);
 
             dispatch(userLoggedIn(data.username));
         }).catch((e) => console.log(e));

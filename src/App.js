@@ -3,6 +3,7 @@ import './App.css';
 import MovieHeader from './components/movieheader';
 import MovieList from './components/movielist';
 import Movie from './components/movie';
+import Search from './components/search';
 import Authentication from './components/authentication';
 import {HashRouter, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/" render={()=><MovieList />}/>
             <Route exact path="/movielist" render={()=><MovieList />}/>
             <Route exact path="/movie/:movieId" render={()=><Movie />}/>
+            <Route exact path="/search" render={()=><Search />}/>
             <Route path="/signin" render={()=><Authentication />}/>
           </div>
         </HashRouter>
