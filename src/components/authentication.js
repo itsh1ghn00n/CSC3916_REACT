@@ -4,6 +4,8 @@ import Login from './login';
 import Register from './register';
 import { logoutUser } from '../actions/authActions';
 
+import { withRouter } from 'react-router-dom';
+
 class Authentication extends Component {
 
     constructor(){
@@ -16,6 +18,12 @@ class Authentication extends Component {
 
     componentDidMount(){
 
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.loggedIn && this.props.loggedIn) {
+            this.props.history.push('/movielist');
+        }
     }
 
     showLogin(){
@@ -59,4 +67,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Authentication)
+export default withRouter(connect(mapStateToProps)(Authentication));

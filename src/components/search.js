@@ -57,24 +57,22 @@ class Search extends Component {
                 </Card>
                 <div>
                     {searchResults && searchResults.length > 0 ? (
-                        <Row xs={1} md={2} lg={3} className="g-3">
+                        <div className="movie-grid">
                             {searchResults.map((movie) => (
-                                <Col key={movie._id} className="mb-3">
-                                    <Card>
-                                        <Link to={`/movie/${movie._id}`} onClick={() => this.props.dispatch(setMovie(movie))}>
-                                            <Image variant="top" src={movie.imageUrl} thumbnail />
-                                        </Link>
-                                        <Card.Body>
-                                            <Card.Title>{movie.title}</Card.Title>
-                                            <Card.Text>{movie.releaseDate || 'Unknown year'}</Card.Text>
-                                            <Card.Text>{movie.genre || 'Genre unavailable'}</Card.Text>
-                                            <Card.Text><BsStarFill /> {movie.avgRating || 'N/A'}</Card.Text>
-                                            <Link to={`/movie/${movie._id}`} onClick={() => this.props.dispatch(setMovie(movie))}>View Details</Link>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
+                                <div key={movie._id} className="movie-card">
+                                <Link
+                                    to={`/movie/${movie._id}`}
+                                    onClick={() => this.props.dispatch(setMovie(movie))}
+                                >
+                                    <img src={movie.imageUrl} alt={movie.title} />
+                                    <div className="movie-overlay">
+                                    <h5>{movie.title}</h5>
+                                    <p>⭐ {movie.avgRating?.toFixed(1) || 'N/A'}</p>
+                                    </div>
+                                </Link>
+                                </div>
                             ))}
-                        </Row>
+                            </div>
                     ) : (
                         <div>No search results yet.</div>
                     )}

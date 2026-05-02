@@ -1,71 +1,56 @@
 import React, { Component } from 'react';
-import { fetchMovies } from "../actions/movieActions";
-import { setMovie } from "../actions/movieActions";
-import {connect} from 'react-redux';
-import {Image, Nav} from 'react-bootstrap';
-import { Carousel } from 'react-bootstrap';
-import { BsStarFill} from 'react-icons/bs'
-import {LinkContainer} from 'react-router-bootstrap';
+import { fetchMovies, setMovie } from "../actions/movieActions";
+import { connect } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class MovieList extends Component {
-    constructor(props) {
-        super(props);
-        this.handleSelect = this.handleSelect.bind(this);
-    }
 
     componentDidMount() {
-        const {dispatch} = this.props;
-        dispatch(fetchMovies());
-    }
-
-    handleSelect(selectedIndex, e) {
-        const {dispatch} = this.props;
-        dispatch(setMovie(this.props.movies[selectedIndex]));
+        this.props.dispatch(fetchMovies());
     }
 
     handleClick = (movie) => {
-        const {dispatch} = this.props;
-        dispatch(setMovie(movie));
+        this.props.dispatch(setMovie(movie));
     }
 
     render() {
-        const MovieList = ({ movieList }) => {
-        if (!movieList) {
-            return <div>Loading....</div>;
+        const { movies } = this.props;
+
+        if (!movies) {
+            return <div style={{ color: "white" }}>Loading...</div>;
         }
 
         return (
-            <div className="movie-row-container">
-                {movieList.map((movie) => (
-                    <LinkContainer
-                    key={movie._id}
-                    to={'/movie/' + movie._id}
-                    onClick={() => this.handleClick(movie)}
-                    >
-                    <div className="movie-card">
-                        <img src={movie.imageUrl} alt={movie.title} />
+            <div>
+                <h2 style={{ color: "white", marginLeft: "20px" }}>
+                    XMBc Movie List
+                </h2>
 
-                        <div className="movie-overlay">
-                        <h4>{movie.title}</h4>
-                        <p>⭐ {movie.avgRating?.toFixed(1)}</p>
-                        </div>
-                    </div>
-                    </LinkContainer>
-                ))}
+                <div className="movie-grid">
+                    {movies.map((movie) => (
+                        <LinkContainer
+                            key={movie._id}
+                            to={`/movie/${movie._id}`}
+                            onClick={() => this.handleClick(movie)}
+                        >
+                            <div className="movie-card">
+                                <img src={movie.imageUrl} alt={movie.title} />
+
+                                <div className="movie-overlay">
+                                    <h5>{movie.title}</h5>
+                                    <p>⭐ {movie.avgRating?.toFixed(1) || 'N/A'}</p>
+                                </div>
+                            </div>
+                        </LinkContainer>
+                    ))}
                 </div>
+            </div>
         );
-        };
-        return (
-            <MovieList movieList={this.props.movies} />
-        )
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        movies: state.movie.movies
-    }
-}
+const mapStateToProps = state => ({
+    movies: state.movie.movies
+});
 
 export default connect(mapStateToProps)(MovieList);
-
