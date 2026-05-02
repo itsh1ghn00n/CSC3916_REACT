@@ -29,32 +29,32 @@ class MovieList extends Component {
     }
 
     render() {
-        const MovieList = ({movieList}) => {
-            if (!movieList) {
-                return <div>Loading....</div>
-            }
-
-            return (
-                <Carousel onSelect={this.handleSelect}>
-                    {movieList.map((movie) =>
-                        <Carousel.Item key={movie._id}>
-                            <div>
-                                <LinkContainer to={'/movie/' + movie._id} onClick={() => this.handleClick(movie)}>
-                                    <Nav.Link>
-                                        <Image className="image" src={movie.imageUrl} thumbnail />
-                                    </Nav.Link>
-                                </LinkContainer>
-                            </div>
-                            <Carousel.Caption>
-                                <h3>{movie.title}</h3>
-                                <BsStarFill glyph={'star'} /> {movie.avgRating} &nbsp;&nbsp; {movie.releaseDate}
-                            </Carousel.Caption>
-                        </Carousel.Item>
-                    )}
-
-                </Carousel>
-            )
+        const MovieList = ({ movieList }) => {
+        if (!movieList) {
+            return <div>Loading....</div>;
         }
+
+        return (
+            <div className="movie-row-container">
+                {movieList.map((movie) => (
+                    <LinkContainer
+                    key={movie._id}
+                    to={'/movie/' + movie._id}
+                    onClick={() => this.handleClick(movie)}
+                    >
+                    <div className="movie-card">
+                        <img src={movie.imageUrl} alt={movie.title} />
+
+                        <div className="movie-overlay">
+                        <h4>{movie.title}</h4>
+                        <p>⭐ {movie.avgRating?.toFixed(1)}</p>
+                        </div>
+                    </div>
+                    </LinkContainer>
+                ))}
+                </div>
+        );
+        };
         return (
             <MovieList movieList={this.props.movies} />
         )

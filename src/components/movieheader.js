@@ -18,20 +18,33 @@ class MovieHeader extends Component {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav>
+                        <Nav className="me-auto">
                             <LinkContainer to="/movielist">
-                                <Nav.Link disabled={!this.props.loggedIn}>Movie List</Nav.Link>
+                            <Nav.Link disabled={!this.props.loggedIn}>Movie List</Nav.Link>
                             </LinkContainer>
+
                             <LinkContainer to="/search">
-                                <Nav.Link disabled={!this.props.loggedIn}>Search</Nav.Link>
+                            <Nav.Link disabled={!this.props.loggedIn}>Search</Nav.Link>
                             </LinkContainer>
+
                             <LinkContainer to={'/movie/' + (this.props.selectedMovie ? this.props.selectedMovie._id : '')}>
-                                <Nav.Link disabled={!this.props.loggedIn || !this.props.selectedMovie}>Movie Detail</Nav.Link>
+                            <Nav.Link disabled={!this.props.loggedIn || !this.props.selectedMovie}>
+                                Movie Detail
+                            </Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/signin">
-                                <Nav.Link>{this.props.loggedIn ? <button onClick={this.logout.bind(this)}>Logout</button> : 'Login'}</Nav.Link>
-                            </LinkContainer>
-                    </Nav>
+                        </Nav>
+
+                        <Nav>
+                            {this.props.loggedIn ? (
+                                <Nav.Link onClick={this.logout.bind(this)} style={{ cursor: 'pointer' }}>
+                                Logout
+                                </Nav.Link>
+                            ) : (
+                                <LinkContainer to="/signin">
+                                <Nav.Link>Login</Nav.Link>
+                                </LinkContainer>
+                            )}
+                        </Nav>
                     </Navbar.Collapse>
                 </Navbar>
             </div>
